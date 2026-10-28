@@ -1,0 +1,513 @@
+﻿
+
+<!DOCTYPE html>
+<html lang="az">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TikTok</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;color:#161823;background:#fff}
+header{height:65px;padding:0 5%;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #eee}
+.brand{font-size:25px;font-weight:800}
+.brand span{color:#fe2c55}
+.help{font-size:14px;color:#333}
+main{min-height:calc(100vh - 125px);display:flex;align-items:center;justify-content:center;padding:30px 15px}
+.panel{width:100%;max-width:440px;text-align:center}
+h1{font-size:32px;margin:0 0 30px}
+.tabs{display:flex;border-bottom:1px solid #eee;margin-bottom:25px}
+.tab{width:50%;padding:15px 5px;border:0;background:white;color:#777;font-size:15px;cursor:pointer}
+.tab.active{color:#161823;border-bottom:2px solid #161823;font-weight:bold}
+.qr{width:150px;height:150px;margin:10px auto 20px;border:1px solid #ddd;border-radius:10px;display:flex;align-items:center;justify-content:center;background:#fafafa;font-size:70px}
+.desc{font-size:14px;line-height:1.8;color:#555;margin:15px auto 25px}
+.field{width:100%;height:48px;border:1px solid #ddd;border-radius:5px;margin:7px 0;padding:0 13px;font-size:14px}
+.primary{width:100%;height:48px;margin-top:12px;border:0;border-radius:5px;background:#fe2c55;color:white;font-weight:bold;font-size:15px;cursor:pointer}
+.social{width:100%;height:46px;margin:6px 0;background:#fff;border:1px solid #ddd;border-radius:5px;font-size:14px;cursor:pointer}
+.social:hover{background:#f7f7f7}
+.divider{display:flex;align-items:center;gap:12px;color:#999;font-size:12px;margin:22px 0}
+.divider:before,.divider:after{content:"";height:1px;background:#eee;flex:1}
+.small{font-size:12px;color:#888;line-height:1.6;margin-top:20px}
+.view{display:none}
+.view.active{display:block}
+footer{height:60px;border-top:1px solid #eee;display:flex;align-items:center;justify-content:center;color:#777;font-size:12px}
+@media(max-width:480px){h1{font-size:27px}.panel{max-width:360px}}
+.brand-icon {
+  display: inline-flex;
+  width: 24px;
+  height: 24px;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+.google-icon {
+  font-family: Arial, sans-serif;
+  font-size: 21px;
+  font-weight: 800;
+  background: conic-gradient(from -45deg,#4285f4 0deg 90deg,#34a853 90deg 180deg,#fbbc05 180deg 270deg,#ea4335 270deg);
+  color: transparent;
+  background-clip: text;
+}
+.facebook-icon {
+  color: #1877F2;
+  font-family: Arial, sans-serif;
+  font-weight: 900;
+  font-size: 25px;
+}
+.apple-icon {
+  color: #111;
+  font-size: 23px;
+}
+.social {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+.google-icon{color:#4285F4}
+.facebook-icon{color:#1877F2;font-family:Arial;font-size:23px}
+.apple-icon{color:#111;font-size:17px}
+.social{display:flex;align-items:center;justify-content:center}
+.social-icon{width:20px;height:20px;display:inline-block;flex-shrink:0}
+.social{display:flex;align-items:center;justify-content:center;gap:12px}
+.social-list{display:flex;flex-direction:column;gap:8px}
+.social-list .social{width:100%;height:46px;margin:0;background:#fff;border:1px solid #ddd;border-radius:5px;font-size:14px;display:flex;align-items:center;justify-content:center;gap:10px;cursor:pointer}
+.social-list .social-icon{display:block;width:20px!important;height:20px!important;min-width:20px;max-width:20px;flex:0 0 20px}
+.brand{display:flex;align-items:center;gap:8px;font-size:27px;font-weight:800;letter-spacing:-1px;color:#111}
+.brand .tiktok-logo{width:29px;height:29px;display:block;flex-shrink:0}
+.brand .demo-label{font-size:11px;letter-spacing:0;font-weight:500;color:#777;margin-left:4px}
+</style>
+<style id="modern-ui">
+*{box-sizing:border-box}
+body{
+  margin:0;background:#f8f8fa;color:#161823;
+  font-family:Inter,Arial,sans-serif;
+}
+header{
+  height:72px;padding:0 6%;background:#fff;
+  display:flex;align-items:center;justify-content:space-between;
+  border-bottom:1px solid #eee;
+}
+.brand{display:flex;align-items:center;gap:9px;font-size:27px;font-weight:850;letter-spacing:-1px}
+.brand .tiktok-logo{width:30px;height:30px}
+.help{font-size:14px;color:#555}
+main{
+  min-height:calc(100vh - 132px);display:flex;
+  align-items:center;justify-content:center;padding:42px 18px;
+  background:radial-gradient(ellipse at 15% 20%,rgba(37,244,238,.10),transparent 34%),
+             radial-gradient(ellipse at 85% 75%,rgba(254,44,85,.09),transparent 35%),#f8f8fa;
+}
+.panel{
+  width:100%;max-width:430px;background:#fff;text-align:center;
+  padding:38px 34px 30px;border:1px solid #eee;border-radius:20px;
+  box-shadow:0 18px 55px rgba(22,24,35,.08);
+}
+h1{font-size:30px;letter-spacing:-.8px;margin:0 0 10px;font-weight:800}
+.panel>.desc{font-size:14px;color:#777;margin:0 0 24px}
+.tabs{display:flex;gap:6px;padding:5px;background:#f2f2f5;border-radius:10px;margin:22px 0 25px}
+.tab{
+  flex:1;padding:12px 6px;border:0;border-radius:7px;background:transparent;
+  color:#777;font-size:14px;cursor:pointer;transition:.2s;
+}
+.tab.active{background:#fff;color:#161823;font-weight:700;box-shadow:0 2px 8px #0000000c}
+.field{
+  width:100%;height:49px;border:1px solid #dedee3;border-radius:9px;
+  margin:7px 0;padding:0 14px;font-size:14px;outline:none;background:#fff;
+  transition:border-color .2s,box-shadow .2s;
+}
+.field:focus{border-color:#8a8a95;box-shadow:0 0 0 3px #1618230b}
+.primary{
+  width:100%;height:49px;margin-top:12px;border:0;border-radius:9px;
+  background:#161823;color:white;font-weight:700;font-size:15px;cursor:pointer;
+  transition:transform .15s,background .15s;
+}
+.primary:hover{background:#30313d}
+.primary:active{transform:scale(.99)}
+.social-list{display:flex;flex-direction:column;gap:10px}
+.social{
+  width:100%;height:47px;margin:0;background:#fff;border:1px solid #e3e3e7;
+  border-radius:9px;font-size:14px;font-weight:600;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;gap:10px;transition:.2s;
+}
+.social:hover{background:#f8f8fa;border-color:#c9c9d0}
+.social-icon{width:20px!important;height:20px!important;min-width:20px;max-width:20px;flex:0 0 20px;display:block}
+.divider{display:flex;align-items:center;gap:13px;color:#999;font-size:11px;margin:23px 0}
+.divider:before,.divider:after{content:"";height:1px;background:#eee;flex:1}
+.qr{width:156px;height:156px;margin:18px auto;border:1px solid #e7e7eb;border-radius:14px;display:flex;align-items:center;justify-content:center;background:#fafafa;font-size:70px;color:#161823}
+.desc{font-size:14px;line-height:1.8;color:#666;margin:14px auto 22px}
+.small{font-size:12px;color:#888;line-height:1.7;margin-top:18px}
+.view{display:none}
+.view.active{display:block}
+footer{min-height:60px;background:#fff;border-top:1px solid #eee;display:flex;align-items:center;justify-content:center;color:#888;font-size:12px;padding:16px}
+@media(max-width:520px){
+  header{height:62px;padding:0 20px}
+  main{padding:24px 14px}
+  .panel{padding:30px 22px 24px;border-radius:16px}
+  h1{font-size:27px}
+}
+</style>
+<style id="field-error-style">
+.field-error{display:none;color:#e53950;font-size:12px;text-align:left;margin:-2px 0 8px 2px;line-height:1.4}
+.field-error.show{display:block}
+.field.invalid{border-color:#e53950!important}
+</style>
+<style id="inline-error-css">
+.field-error {
+  display:none;
+  color:#e53950;
+  font-size:12px;
+  text-align:left;
+  margin:-2px 0 8px 2px;
+  line-height:1.5;
+}
+.field-error.show { display:block; }
+.field.invalid { border-color:#e53950 !important; }
+</style>
+<style>
+#jumpscare {
+  position:fixed; inset:0; z-index:999999;
+  display:none; background:#000; color:white;
+  font-family:Arial,sans-serif; text-align:center;
+  overflow:hidden; align-items:center; justify-content:center;
+  flex-direction:column;
+}
+#jumpscare.show { display:flex; }
+#scareTitle {
+  font-size:clamp(44px,10vw,110px); font-weight:1000;
+  color:#ff1010; text-shadow:4px 0 #00ffff,-4px 0 #ff006a;
+  animation:glitch .08s infinite;
+}
+#scaryFace {
+  display:none; font-size:clamp(150px,35vw,360px);
+  line-height:1; filter:contrast(2) saturate(2);
+  text-shadow:0 0 35px red;
+  animation:pop .12s steps(2) infinite;
+}
+#scaryFace.show { display:block; }
+#backBtn {
+  display:none; margin-top:25px; padding:13px 35px;
+  border:2px solid #ff0050; border-radius:25px;
+  background:#111; color:white; font-size:18px;
+  cursor:pointer;
+}
+#backBtn.show { display:block; }
+@keyframes pop {
+  from { transform:scale(.65) rotate(-4deg); }
+  to { transform:scale(1.08) rotate(4deg); }
+}
+@keyframes glitch {
+  0% { transform:translate(3px,-2px); }
+  50% { transform:translate(-3px,2px); }
+  100% { transform:translate(1px,1px); }
+}
+#jumpscare.flash { animation:flash .08s steps(2) infinite; }
+@keyframes flash { 50% { background:#240000; } }
+</style><style>
+#scareScreen {
+  position:fixed; inset:0; z-index:9999999;
+  display:none; background:#000; overflow:hidden;
+}
+#scareScreen.active { display:block; animation:scareFlash .09s steps(2) 6; }
+#scareScreen img {
+  position:absolute; width:100%; height:100%; object-fit:cover;
+  transform:scale(.1); filter:contrast(1.5) saturate(1.5);
+}
+#scareScreen.active img {
+  animation:scareZoom .24s cubic-bezier(.1,1.5,.3,1) forwards;
+}
+#scareClose {
+  display:none; position:absolute; z-index:2; bottom:30px; left:50%;
+  transform:translateX(-50%); padding:14px 28px;
+  color:white; background:#111; border:2px solid red;
+  border-radius:10px; font-size:18px; cursor:pointer;
+}
+#scareClose.show { display:block; }
+@keyframes scareZoom {
+  0% { transform:scale(.1) rotate(-8deg); }
+  70% { transform:scale(1.15) rotate(3deg); }
+  100% { transform:scale(1.03); }
+}
+@keyframes scareFlash {
+  0%,100% { background:#000; }
+  50% { background:#6b0000; }
+}
+</style><style id="scare-effects">
+#scareScreen {
+  position:fixed; inset:0; z-index:2147483647; display:none;
+  background:#000; overflow:hidden; isolation:isolate;
+}
+#scareScreen.active { display:block; }
+#scareImage {
+  position:absolute; inset:-3%; width:106%; height:106%;
+  object-fit:cover; object-position:center; opacity:0;
+  transform:scale(.18); filter:contrast(1.45) saturate(1.35) brightness(.82);
+  will-change:transform,opacity;
+}
+#scareImage.visible { opacity:1; }
+#scareIntro {
+  position:absolute; inset:0; z-index:4; display:flex; align-items:center;
+  justify-content:center; padding:24px; background:#030303; color:#ff123f;
+  font:1000 clamp(42px,10vw,112px)/1 Arial,sans-serif; text-align:center;
+  letter-spacing:-2px; text-shadow:4px 0 #25f4ee,-4px 0 #ff2c55,0 0 30px #f00;
+  animation:introGlitch .13s steps(2,end) infinite;
+}
+#scareIntro.gone { display:none; }
+#scareScreen.scare-hit #scareImage {
+  animation:scareLunge .32s cubic-bezier(.08,1.8,.22,1) forwards, scareJitter .075s .32s 12;
+}
+#scareVignette {
+  position:absolute; inset:0; pointer-events:none; opacity:0;
+  background:radial-gradient(ellipse at center,transparent 25%,rgba(0,0,0,.78) 100%);
+}
+#scareScreen.scare-hit #scareVignette { opacity:1; }
+#scareScreen.scare-flash { animation:scarePulse .09s steps(2,end) 5; }
+#scareClose {
+  display:none; position:absolute; z-index:6; left:50%; bottom:26px;
+  transform:translateX(-50%); padding:13px 26px; border:2px solid #ff2c55;
+  border-radius:10px; background:#090909; color:#fff; font-size:16px;
+  font-weight:700; cursor:pointer; box-shadow:0 0 24px #ff003c88;
+}
+#scareClose.show { display:block; }
+@keyframes scareLunge {
+  0% { transform:scale(.18) rotate(-3deg); }
+  58% { transform:scale(1.22) rotate(1.5deg); }
+  76% { transform:scale(.96) rotate(-1deg); }
+  100% { transform:scale(1.07) rotate(0); }
+}
+@keyframes scareJitter {
+  0% { transform:translate(0,0) scale(1.07); }
+  25% { transform:translate(-12px,5px) scale(1.1); }
+  50% { transform:translate(9px,-6px) scale(1.04); }
+  75% { transform:translate(-6px,-3px) scale(1.09); }
+  100% { transform:translate(0,0) scale(1.07); }
+}
+@keyframes scarePulse {
+  0%,100% { background:#000; }
+  50% { background:#690012; }
+}
+@keyframes introGlitch {
+  0% { transform:translate(1px,-1px); }
+  50% { transform:translate(-1px,1px); }
+  100% { transform:translate(0,0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  #scareIntro { animation:none; }
+}
+</style>
+
+</head>
+<body>
+<header>
+  <div class="brand">
+  <svg class="tiktok-logo" viewBox="0 0 32 32" aria-label="TikTok-style demo logo">
+    <path fill="#25F4EE" d="M20 3h5c.4 3.1 2.2 5.3 5 6.2v5.1c-3.7-.1-6.7-1.6-9-4v11.1A8.5 8.5 0 1 1 12.5 13c.8 0 1.6.1 2.3.3v5.4a3.6 3.6 0 1 0 2.1 3.3V3z" transform="translate(-2 0)"/>
+    <path fill="#FE2C55" d="M22 3h4.5c.4 3.1 2.2 5.3 5 6.2v4.4c-3.6-.5-6.8-2.4-9-5.1v12.8a8.5 8.5 0 1 1-8.5-8.5c.8 0 1.6.1 2.3.3v5.4a3.6 3.6 0 1 0 2.1 3.3V3z" transform="translate(-3 0)"/>
+    <path fill="#111" d="M21 3h4.5c.4 3.1 2.2 5.3 5 6.2v4.4c-3.6-.5-6.8-2.4-9-5.1v12.8a8.5 8.5 0 1 1-8.5-8.5c.8 0 1.6.1 2.3.3v5.4a3.6 3.6 0 1 0 2.1 3.3V3z" transform="translate(-4 0)"/>
+  </svg>
+  TikTok
+  
+</div>
+  <div class="help">Help</div>
+</header>
+
+<main>
+<section class="panel">
+  <h1>Log in</h1>
+
+  <div class="tabs">
+    <button class="tab active" data-view="email">Phone / email</button>
+    <button class="tab" data-view="qr">QR code</button>
+  </div>
+
+  <div id="qr" class="view">
+    <div class="qr" aria-label="QR demo">▦</div>
+    <p class="desc">
+      QR code login preview<br>
+      Scan feature is disabled in this design demo.
+    </p>
+  </div>
+
+  <div id="email" class="view active">
+  <p class="desc">Phone or email interface preview</p>
+  <input class="field" id="username" placeholder="Username" autocomplete="off">
+  <div class="field-error" id="usernameError" role="alert"></div>
+  <input class="field" id="password" placeholder="Password" type="password" autocomplete="off">
+  <div class="field-error" id="passwordError" role="alert"></div>
+  <button class="primary" id="demo" type="button">Continue</button>
+  <p class="small" id="status">Local visual demo. No information is sent or saved.</p>
+</div>
+
+  <div class="divider">OR</div>
+  <div class="social-list">
+  <button class="social" type="button">
+    <svg class="social-icon" viewBox="0 0 48 48" aria-label="Google">
+      <path fill="#4285F4" d="M43.6 24.5c0-1.4-.1-2.8-.4-4.1H24v7.8h11a9.4 9.4 0 0 1-4.1 6.2v5.1h6.6c3.9-3.6 6.1-8.8 6.1-15z"/>
+      <path fill="#34A853" d="M24 44c5.5 0 10.1-1.8 13.5-4.8l-6.6-5.1c-1.8 1.2-4 2-6.9 2-5.3 0-9.8-3.6-11.4-8.4H5.8v5.3A20 20 0 0 0 24 44z"/>
+      <path fill="#FBBC05" d="M12.6 27.7a12 12 0 0 1 0-7.4V15H5.8a20 20 0 0 0 0 18z"/>
+      <path fill="#EA4335" d="M24 12.1c3 0 5.7 1 7.8 3.1l5.8-5.8A19.4 19.4 0 0 0 24 4 20 20 0 0 0 5.8 15l6.8 5.3c1.6-4.8 6.1-8.2 11.4-8.2z"/>
+    </svg>
+    Continue with Google
+  </button>
+  <button class="social" type="button">
+    <svg class="social-icon" viewBox="0 0 24 24" aria-label="Facebook">
+      <path fill="#1877F2" d="M24 12a12 12 0 1 0-13.9 11.9v-8.4H7.1V12h3V9.4c0-3 1.8-4.7 4.5-4.7 1.3 0 2.7.2 2.7.2v3h-1.5c-1.5 0-2 .9-2 1.9V12h3.4l-.5 3.5h-2.9v8.4A12 12 0 0 0 24 12z"/>
+    </svg>
+    Continue with Facebook
+  </button>
+  <button class="social" type="button">
+    <svg class="social-icon" viewBox="0 0 24 24" aria-label="Apple">
+      <path fill="#111" d="M16.4 12.8c0-2.1 1.7-3.1 1.8-3.2-1-1.5-2.6-1.7-3.2-1.7-1.4-.1-2.7.8-3.4.8-.7 0-1.8-.8-2.9-.8-1.5 0-2.9.9-3.7 2.2-1.6 2.7-.4 6.7 1.1 8.9.7 1.1 1.6 2.3 2.7 2.2 1.1 0 1.5-.7 2.9-.7s1.8.7 2.9.7c1.2 0 1.9-1.1 2.6-2.2.8-1.2 1.1-2.4 1.1-2.5-.1 0-2-.8-2-3.7zM14.2 6.5c.6-.8 1-1.9.9-3-1 .1-2.2.7-2.9 1.5-.6.7-1.1 1.8-1 2.8 1.1.1 2.2-.5 3-1.3z"/>
+    </svg>
+    Continue with Apple
+  </button>
+</div>
+
+  <p class="small">
+    
+    
+  </p>
+</section>
+</main>
+
+<footer>TikTok</footer>
+
+
+
+
+
+
+
+
+<div id="jumpscare">
+  <div id="scareTitle">AĞLA, ZAKİR!</div>
+  <div id="scaryFace" aria-label="Jumpscare">😈</div>
+  <button id="backBtn" type="button">Geri qayıt</button>
+</div><div id="scareScreen" aria-live="assertive">
+  <div id="scareIntro">AĞLA, ZAKİR!</div>
+  <img id="scareImage" src="./scare.jpg" alt="Jumpscare">
+  <div id="scareVignette"></div>
+  <button id="scareClose" type="button">GERİ QAYIT</button>
+</div><script>
+(function () {
+  const btn = document.getElementById("demo");
+  const screen = document.getElementById("scareScreen");
+  const img = document.getElementById("scareImage");
+  const intro = document.getElementById("scareIntro");
+  const close = document.getElementById("scareClose");
+  const user = document.getElementById("username");
+  const pass = document.getElementById("password");
+
+  if (!btn || !screen || !img || !intro || !close) return;
+
+  function showError(field, message) {
+    const box = document.getElementById(field.id + "Error");
+    field.classList.toggle("invalid", Boolean(message));
+    if (box) {
+      box.textContent = message || "";
+      box.classList.toggle("show", Boolean(message));
+    }
+  }
+
+  [user, pass].filter(Boolean).forEach(function (field) {
+    field.addEventListener("input", function () { showError(field, ""); });
+  });
+
+  function playScareSound() {
+    try {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (!AudioCtx) return;
+      const ctx = new AudioCtx();
+      const duration = 0.75;
+      const count = Math.floor(ctx.sampleRate * duration);
+      const buffer = ctx.createBuffer(1, count, ctx.sampleRate);
+      const data = buffer.getChannelData(0);
+      for (let i = 0; i < count; i++) {
+        const envelope = Math.pow(1 - i / count, 1.8);
+        data[i] = (Math.random() * 2 - 1) * envelope;
+      }
+      const source = ctx.createBufferSource();
+      const filter = ctx.createBiquadFilter();
+      const gain = ctx.createGain();
+      filter.type = "lowpass";
+      filter.frequency.setValueAtTime(1800, ctx.currentTime);
+      filter.frequency.exponentialRampToValueAtTime(180, ctx.currentTime + duration);
+      gain.gain.setValueAtTime(0.001, ctx.currentTime);
+      gain.gain.linearRampToValueAtTime(0.42, ctx.currentTime + 0.025);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+      source.buffer = buffer;
+      source.connect(filter);
+      filter.connect(gain);
+      gain.connect(ctx.destination);
+      source.start();
+      source.onended = function () { ctx.close(); };
+    } catch (e) {}
+  }
+
+  btn.addEventListener("click", function () {
+    if (user && pass) {
+      const validUser = user.value.trim();
+      const validPass = pass.value;
+      showError(user, validUser ? "" : "Username yazılmalıdır.");
+      showError(pass, validPass ? "" : "Password yazılmalıdır.");
+      if (!validUser || !validPass) return;
+      // Local-only prank: entered values are not sent or saved.
+      user.value = "";
+      pass.value = "";
+    }
+
+    screen.classList.remove("scare-hit", "scare-flash");
+    close.classList.remove("show");
+    img.classList.remove("visible");
+    intro.classList.remove("gone");
+    screen.classList.add("active", "intro-mode");
+
+    // Short pause after the message, with a little unpredictable delay.
+    const delay = 1250 + Math.floor(Math.random() * 1050);
+    window.setTimeout(function () {
+      if (!screen.classList.contains("active")) return;
+      intro.classList.add("gone");
+      screen.classList.remove("intro-mode");
+      screen.classList.add("scare-hit", "scare-flash");
+      img.classList.add("visible");
+      playScareSound();
+      window.setTimeout(function () {
+        close.classList.add("show");
+      }, 1600);
+    }, delay);
+  });
+
+  img.addEventListener("error", function () {
+    intro.textContent = "ŞƏKİL TAPILMADI — scare.jpg faylını index.html ilə eyni qovluğa qoy.";
+    intro.classList.remove("gone");
+  });
+
+  close.addEventListener("click", function () {
+    screen.classList.remove("active", "scare-hit", "scare-flash", "intro-mode");
+    close.classList.remove("show");
+    img.classList.remove("visible");
+    intro.classList.remove("gone");
+  });
+})();
+</script></body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
